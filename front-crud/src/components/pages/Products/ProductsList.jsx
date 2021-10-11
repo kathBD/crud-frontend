@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React,   {useState } from "react";
 import prodcss from "./ProductsList.module.css";
 import * as FaIcons from 'react-icons/fa';
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import { Modal, ModalBody, ModalHeader, ModalFooter, Input } from "reactstrap";
 
 const ProductsList = () => {
   const dataProducts = [
@@ -61,7 +61,7 @@ const ProductsList = () => {
 
   const choice=(product, set)=>{
     setProductSelec(product);
-    (set=='Edit')?setModalEdit(true):setModalDelete(true)
+    (set==='Edit')?setModalEdit(true):setModalDelete(true)
       }
       const handleChange=e=>{
         const {name, value}=e.target;
@@ -81,8 +81,8 @@ const ProductsList = () => {
             product.pro_description=productSelec.pro_description;
             product.pro_category=productSelec.pro_category;  
             
-          }
-        });
+        }
+        })
         setData(dataNew);
         setModalEdit(false);
       }
@@ -92,7 +92,7 @@ const ProductsList = () => {
         setModalDelete(false);
       }
     
-      const openmodal=()=>{
+      const openmodalAdd=()=>{
         setProductSelec(null);
         setModalAdd(true);
       }
@@ -106,13 +106,19 @@ const ProductsList = () => {
         setModalAdd(false);
       }
 
+
   return (
     
     <div className="container">
       <div className={prodcss.title}>
         <h5>Lista de Productos</h5>
+      <div className={prodcss.searh}>
+      
+
       </div>
-      <button type="button"  className="btn btn-primary" class="btn btn-primary"  onClick={()=>openmodal()}> + Agregar </button>
+
+     </div>
+      <button type="button"  className="btn btn-primary" class="btn btn-primary"  onClick={()=>openmodalAdd( )}> + Agregar </button>
       <table className="table table-bordered table-sm table-hover table-responsive " id="content" >
         <thead className="active table-dark">
           <tr className="text-center">
@@ -161,7 +167,7 @@ const ProductsList = () => {
               type="text"
               name="id"
               value={productSelec && productSelec.id}
-           
+              onChange={handleChange}
             />
               <br />
               <label>Nombre</label>
@@ -180,7 +186,7 @@ const ProductsList = () => {
               className="form-control"
               type="text"
               name="proveedor"
-              value={productSelec & productSelec.pro_provider}
+              value={productSelec && productSelec.pro_provider}
               onChange={handleChange}
             />
             <br />
@@ -196,8 +202,8 @@ const ProductsList = () => {
             <label>Fecha</label>
             <input
               className="form-control"
-              type="text"
-              name="Fecha"
+              type="data"
+              name="pro_date"
               value={productSelec && productSelec.pro_date}
               onChange={handleChange}
             />
@@ -227,7 +233,7 @@ const ProductsList = () => {
               <ModalFooter>
               <button className="btn btn-primary"
           onClick={()=>edit()}>
-           Actualziar
+           Actualizar
           </button>
           <button
             className="btn btn-danger"
@@ -305,8 +311,9 @@ const ProductsList = () => {
             <label>Fecha</label>
             <input
               className="form-control"
-              type="text"
-              name="Fecha"
+              type= "date" 
+              type="datetime-local"
+              name="pro_date"
               value={productSelec ? productSelec.pro_date: ''}
               onChange={handleChange}
             />
@@ -332,6 +339,18 @@ const ProductsList = () => {
        />
         </div>
          </ModalBody>
+         <ModalFooter>
+          <button className="btn btn-primary"
+          onClick={()=>Add()}>
+            Agregar
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={()=>setModalAdd(false)}
+          >
+            Cancelar
+          </button>
+        </ModalFooter>
             </Modal>
 
     </div>
